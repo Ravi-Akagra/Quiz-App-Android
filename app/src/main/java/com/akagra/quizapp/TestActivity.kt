@@ -2,11 +2,13 @@ package com.akagra.quizapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.View
 import com.akagra.quizapp.databinding.ActivityTestBinding
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
+
 
 class TestActivity : AppCompatActivity() {
 
@@ -16,6 +18,8 @@ class TestActivity : AppCompatActivity() {
     private var diff:String = "easy"
 
     fun UIupdator(){
+        binding.simpleChronometer.base = SystemClock.elapsedRealtime()
+        binding.simpleChronometer.stop()
         binding.tvQuestion.text = ""
         binding.tvQuestionImg.visibility = View.GONE
         binding.tvOptionOne.text = ""
@@ -38,6 +42,7 @@ class TestActivity : AppCompatActivity() {
             binding.tvOptionTwo.text =  QuestionsList[0].data.getValue("option2").toString()
             binding.tvOptionThree.text =  QuestionsList[0].data.getValue("option3").toString()
             binding.tvOptionFour.text = QuestionsList[0].data.getValue("option4").toString()
+            binding.simpleChronometer.start()
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
